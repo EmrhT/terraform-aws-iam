@@ -1,12 +1,12 @@
-provider "aws" {
-  region = "eu-west-1"
-}
+# provider "aws" {
+#   region = "eu-west-1"
+# }
 
 #########################################
 # IAM user, login profile and access key
 #########################################
 module "iam_user" {
-  source = "../../modules/iam-user"
+  source = "../../../modules/iam-user"
 
   name          = "vasya.pupkin"
   force_destroy = true
@@ -26,7 +26,7 @@ module "iam_user" {
 # IAM user without pgp_key (IAM access secret will be unencrypted)
 ###################################################################
 module "iam_user2" {
-  source = "../../modules/iam-user"
+  source = "../../../modules/iam-user"
 
   name = "vasya.pupkin4"
 
@@ -38,7 +38,7 @@ module "iam_user2" {
 # IAM user with inactive IAM access key
 ###################################################################
 module "iam_user3" {
-  source = "../../modules/iam-user"
+  source = "../../../modules/iam-user"
 
   name = "vasya.pupkin5"
 
@@ -56,7 +56,7 @@ data "aws_iam_policy" "example" {
 }
 
 module "iam_user4" {
-  source = "../../modules/iam-user"
+  source = "../../../modules/iam-user"
 
   name = "vasya.pupkin6"
 

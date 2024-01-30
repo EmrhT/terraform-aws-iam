@@ -1,6 +1,6 @@
-provider "aws" {
-  region = "eu-west-1"
-}
+# provider "aws" {
+#   region = "eu-west-1"
+# }
 
 data "aws_iam_policy_document" "bucket_policy" {
   statement {
@@ -14,7 +14,7 @@ data "aws_iam_policy_document" "bucket_policy" {
 # IAM policy
 #########################################
 module "iam_policy" {
-  source = "../../modules/iam-policy"
+  source = "../../../modules/iam-policy"
 
   name_prefix = "example-"
   path        = "/"
@@ -41,7 +41,7 @@ EOF
 }
 
 module "iam_policy_from_data_source" {
-  source = "../../modules/iam-policy"
+  source = "../../../modules/iam-policy"
 
   name        = "example_from_data_source"
   path        = "/"
@@ -55,7 +55,7 @@ module "iam_policy_from_data_source" {
 }
 
 module "iam_policy_optional" {
-  source = "../../modules/iam-policy"
+  source = "../../../modules/iam-policy"
 
   create_policy = false
 }
