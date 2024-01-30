@@ -2,60 +2,35 @@
 #   region = "eu-west-1"
 # }
 
-data "aws_iam_policy_document" "bucket_policy" {
+data "aws_iam_policy_document" "bucket_policy_list_get_location" {
   statement {
-    sid       = "AllowFullS3Access"
-    actions   = ["s3:ListAllMyBuckets"]
-    resources = ["*"]
+    sid       = "AllowS3ListGetLocation"
+    actions = [
+      "s3:ListAllMyBuckets",
+      "s3:GetBucketLocation",
+    ]
+    resources = [
+      "arn:aws:s3:::*",
+    ]
+    effect = "Allow"
   }
 }
 
 #########################################
 # IAM policy
 #########################################
-module "iam_policy" {
-  source = "../../../modules/iam-policy"
-
-  name_prefix = "example-"
-  path        = "/"
-  description = "My example policy"
-
-  policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Action": [
-        "ec2:Describe*"
-      ],
-      "Effect": "Allow",
-      "Resource": "*"
-    }
-  ]
-}
-EOF
-
-  tags = {
-    PolicyDescription = "Policy created using heredoc policy"
-  }
-}
 
 module "iam_policy_from_data_source" {
   source = "../../../modules/iam-policy"
 
-  name        = "example_from_data_source"
+  name        = "bucket_policy_list_get_location"
   path        = "/"
   description = "My example policy"
 
-  policy = data.aws_iam_policy_document.bucket_policy.json
+  policy = data.aws_iam_policy_document.bucket_policy_list_get_location.json
 
   tags = {
     PolicyDescription = "Policy created using example from data source"
   }
 }
 
-module "iam_policy_optional" {
-  source = "../../../modules/iam-policy"
-
-  create_policy = false
-}
