@@ -25,6 +25,7 @@ module "iam_user_devops_john" {
 
 data "aws_iam_access_keys" "iam_user_devops_john" {
   user = module.iam_user_devops_john.iam_user_name
+  depends_on = [ module.iam_user_devops_john ]
 }
 
 ###################################################################
@@ -41,6 +42,7 @@ module "iam_user_security_jane" {
 
 data "aws_iam_access_keys" "iam_user_security_jane" {
   user = module.iam_user_security_jane.iam_user_name
+  depends_on = [ module.iam_user_security_jane ]
 }
 
 ###################################################################
@@ -59,6 +61,7 @@ module "iam_user_network_tom" {
 
 data "aws_iam_access_keys" "iam_user_network_tom" {
   user = module.iam_user_network_tom.iam_user_name
+  depends_on = [ module.iam_user_network_tom ]
 }
 
 # ###################################################################
