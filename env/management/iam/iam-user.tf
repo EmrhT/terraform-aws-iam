@@ -1,16 +1,17 @@
-# provider "aws" {
-#   region = "eu-west-1"
-# }
+provider "aws" {
+  region = "eu-west-1"
+}
 
 #########################################
 # IAM user, login profile and access key
 #########################################
-module "iam_user" {
+module "iam_user_devops_john" {
   source = "../../../modules/iam-user"
 
-  name          = "vasya.pupkin"
+  name          = "devops_john"
   force_destroy = true
 
+  
   # User "test" has uploaded his public key here - https://keybase.io/test/pgp_keys.asc
   pgp_key = "keybase:test"
 
@@ -25,10 +26,10 @@ module "iam_user" {
 ###################################################################
 # IAM user without pgp_key (IAM access secret will be unencrypted)
 ###################################################################
-module "iam_user2" {
+module "iam_user_security_jane" {
   source = "../../../modules/iam-user"
 
-  name = "vasya.pupkin4"
+  name = "security_jane"
 
   create_iam_user_login_profile = false
   create_iam_access_key         = true
@@ -37,10 +38,10 @@ module "iam_user2" {
 ###################################################################
 # IAM user with inactive IAM access key
 ###################################################################
-module "iam_user3" {
+module "iam_user_network_tom" {
   source = "../../../modules/iam-user"
 
-  name = "vasya.pupkin5"
+  name = "network_tom"
 
   create_iam_user_login_profile = false
   create_iam_access_key         = true
@@ -51,16 +52,16 @@ module "iam_user3" {
 # IAM user with IAM policy attached
 ###################################################################
 
-data "aws_iam_policy" "example" {
-  name = "AmazonS3ReadOnlyAccess"
-}
+# data "aws_iam_policy" "example" {
+#   name = "AmazonS3ReadOnlyAccess"
+# }
 
-module "iam_user4" {
-  source = "../../../modules/iam-user"
+# module "iam_user4" {
+#   source = "../../../modules/iam-user"
 
-  name = "vasya.pupkin6"
+#   name = "vasya.pupkin6"
 
-  create_iam_user_login_profile = false
-  create_iam_access_key         = true
-  policy_arns                   = [data.aws_iam_policy.example.arn]
-}
+#   create_iam_user_login_profile = false
+#   create_iam_access_key         = true
+#   policy_arns                   = [data.aws_iam_policy.example.arn]
+# }
