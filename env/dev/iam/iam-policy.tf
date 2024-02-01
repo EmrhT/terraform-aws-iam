@@ -1,7 +1,3 @@
-# provider "aws" {
-#   region = "eu-west-1"
-# }
-
 data "aws_iam_policy_document" "bucket_policy_list_get_location" {
   statement {
     sid       = "AllowS3ListGetLocation"
@@ -25,7 +21,7 @@ module "iam_policy_from_data_source" {
 
   name        = "bucket_policy_list_get_location"
   path        = "/"
-  description = "My example policy"
+  description = "example policy for bucket_policy_list_get_location"
 
   policy = data.aws_iam_policy_document.bucket_policy_list_get_location.json
 

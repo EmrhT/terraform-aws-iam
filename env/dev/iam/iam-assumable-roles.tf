@@ -10,8 +10,7 @@ module "iam_assumable_roles_network" {
   source = "../../../modules/iam-assumable-roles"
 
   trusted_role_arns = [
-    "arn:aws:iam::597947213367:root",
-    "arn:aws:iam::597947213367:user/emrah-iam-testing",
+    "arn:aws:iam::597947213367:user/network_tom",
   ]
 
   trusted_role_services = [
@@ -19,17 +18,17 @@ module "iam_assumable_roles_network" {
   ]
 
   create_poweruser_role      = true
-  poweruser_role_name        = "Alexa-For-Business-Full-Access"
+  poweruser_role_name        = "Network-Admins-Access-Role"
   poweruser_role_policy_arns = ["arn:aws:iam::aws:policy/job-function/NetworkAdministrator", "arn:aws:iam::aws:policy/AlexaForBusinessFullAccess"]
   poweruser_role_requires_mfa = false
 
 }
 
-module "iam_assumable_roles_dev" {
+module "iam_assumable_roles_security" {
   source = "../../../modules/iam-assumable-roles"
 
   trusted_role_arns = [
-    "arn:aws:iam::597947213367:user/emrah-iam-testing-dev",
+    "arn:aws:iam::597947213367:user/security_jane",
   ]
 
   trusted_role_services = [
@@ -37,17 +36,17 @@ module "iam_assumable_roles_dev" {
   ]
 
   create_poweruser_role      = true
-  poweruser_role_name        = "Readonly-Access-For-Devs"
-  poweruser_role_policy_arns = ["arn:aws:iam::aws:policy/ReadOnlyAccess", "arn:aws:iam::444469924026:policy/bucket_policy_list_get_location"]
+  poweruser_role_name        = "Security-Admins-Access-Role"
+  poweruser_role_policy_arns = ["arn:aws:iam::aws:policy/SecurityAudit", "arn:aws:iam::444469924026:policy/bucket_policy_list_get_location"]
   poweruser_role_requires_mfa = false
 
 }
 
-module "iam_assumable_roles_qa" {
+module "iam_assumable_roles_devops" {
   source = "../../../modules/iam-assumable-roles"
 
   trusted_role_arns = [
-    "arn:aws:iam::597947213367:user/emrah-iam-testing-qa",
+    "arn:aws:iam::597947213367:user/devops_john",
   ]
 
   trusted_role_services = [
@@ -55,8 +54,8 @@ module "iam_assumable_roles_qa" {
   ]
 
   create_poweruser_role      = true
-  poweruser_role_name        = "Readonly-Access-For-QA"
-  poweruser_role_policy_arns = ["arn:aws:iam::aws:policy/ReadOnlyAccess", "arn:aws:iam::aws:policy/AWSBackupOperatorAccess"]
+  poweruser_role_name        = "Devops-Access-Role"
+  poweruser_role_policy_arns = ["arn:aws:iam::aws:policy/AdministratorAccess"]
   poweruser_role_requires_mfa = false
 
 }
